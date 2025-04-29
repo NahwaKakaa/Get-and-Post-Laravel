@@ -49,4 +49,25 @@ class UserController extends Controller
         }
         return response()->json(['error' => 'Pengguna tidak ditemukan'], 404);
     }
+
+    // Update user berdasarkan id
+    public function update(Request $request, $id) 
+    { 
+        $request->validate([ 
+            'name' => 'sometimes|required|string|max:255', 
+            'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id, 
+        ]); 
+ 
+        $user = User::findById($id); 
+        $user->update($request->only(['name', 'email'])); 
+ 
+        return response()->json($user, 200); 
+    }
+
+    // Hapus user berdasarkan id
+    public function destroy($id) 
+    { 
+        User::destroy($id);
+        return response()->json(null, 204); 
+    } 
 }
