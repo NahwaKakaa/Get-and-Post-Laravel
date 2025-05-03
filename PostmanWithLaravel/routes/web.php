@@ -1,0 +1,22 @@
+<?php
+
+use Illuminate\Support\Facades\Route; 
+use App\Http\Controllers\UserController; 
+use App\Http\Controllers\ProductController; 
+use App\Http\Controllers\BeliController;
+
+Route::post('register', [UserController::class, 'register']); 
+Route::get('users', [UserController::class, 'index']); 
+
+// Nomor 3 Tambahkan ini
+Route::get('/users/{id}', [UserController::class, 'showById']);
+Route::get('/users/email/{email}', [UserController::class, 'showByEmail']);
+
+Route::post('products', [ProductController::class, 'store']); 
+Route::get('products', [ProductController::class, 'index']); 
+
+// Nomor 2 Tambahkan ini
+Route::get('/products/{id}', [ProductController::class, 'show']);
+
+Route::post('belis', [BeliController::class, 'store']); 
+Route::get('belis', [BeliController::class, 'index']);
